@@ -21,6 +21,7 @@
         </activity>
 
         <activity android:name=".ui.HitAppCompatActivity" />
+        <activity android:name=".ui.HitAppCompatActivity2" />
     </application>
 
 </manifest>

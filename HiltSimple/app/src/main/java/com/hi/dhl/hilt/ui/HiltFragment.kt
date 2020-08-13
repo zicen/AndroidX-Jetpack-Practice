@@ -20,14 +20,12 @@ import javax.inject.Inject
  *     desc  :
  * </pre>
  */
-
 /**
  *  如果 注解 fragment 然后还必须注解  fragment 依赖的 Activity, 否则会抛出以下异常
  * java.lang.IllegalStateException: Hilt Fragments must be attached to an @AndroidEntryPoint Activity. Found: class com.hi.dhl.hilt.ui.MainActivity
  */
 @AndroidEntryPoint
 class HiltFragment : Fragment() {
-
     // 使用 @Inject 注解从组件中获取依赖
     @Inject
     lateinit var mHiltSimple: HiltSimple
@@ -46,7 +44,12 @@ class HiltFragment : Fragment() {
         mHiltSimple.doSomething()
 
         mHiltViewModel.mAdressLiveData.observe(viewLifecycleOwner, Observer {
-            tvAddress.setText(it)
+            tvAddress.text = it
         })
+        // 手动依赖注入
+        if (activity is HitAppCompatActivity2) {
+            val ac = activity as HitAppCompatActivity2
+            tvAddress.text = ac.userInfo.name
+        }
     }
 }

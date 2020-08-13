@@ -1,11 +1,11 @@
 package com.hi.dhl.hilt.ui
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.hi.dhl.hilt.R
+import com.hi.dhl.hilt.model.UserInfo
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_hilt.*
 
@@ -17,8 +17,9 @@ import kotlinx.android.synthetic.main.activity_hilt.*
  * </pre>
  */
 @AndroidEntryPoint
-class HitAppCompatActivity : AppCompatActivity() {
-    private val mHitViewModule: HiltViewModel by viewModels()
+class HitAppCompatActivity2 : AppCompatActivity() {
+    private val mHitViewModule: HiltViewModel2 by viewModels()
+    val userInfo: UserInfo = UserInfo("lizhenquan", 18)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,8 +34,12 @@ class HitAppCompatActivity : AppCompatActivity() {
             tvResult.setText(it)
         })
 
+        mHitViewModule.mAdressLiveData.observe(this, Observer {
+            tvResult.setText(it)
+        })
+
         btnArgument.setOnClickListener {
-            startActivity(Intent(HitAppCompatActivity@this, HitAppCompatActivity2::class.java))
+            mHitViewModule.passArgument("address : shanghai")
         }
     }
 }

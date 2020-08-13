@@ -5,6 +5,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.hi.dhl.hilt.R
 import com.hi.dhl.hilt.di.HiltSimple
+import com.hi.dhl.hilt.di.NetworkModule
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.startActivity
@@ -35,6 +36,7 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var mHiltSimple: HiltSimple
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -47,5 +49,7 @@ class MainActivity : AppCompatActivity() {
             mHiltSimple.doSomething()
             toast("调用成功，查看控制日志")
         }
+
+        val provideOkHttpClient = NetworkModule.provideOkHttpClient()
     }
 }
